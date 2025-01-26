@@ -328,7 +328,7 @@ label:
 		ChatSessionId:   data["id"].(string),
 		RefFileIds:      make([]int, 0),
 		ThinkingEnabled: completion.Model[9:] == "r1",
-		SearchEnabled:   false,
+		SearchEnabled:   true,
 
 		Message: contentBuffer.String(),
 	}
