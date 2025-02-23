@@ -1,0 +1,32 @@
+name: Build for Linux ARM64
+
+on:
+  workflow_dispatch:  # This allows manual triggering of the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.23.3'  # Specify the Go version you need
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Install iocgo
+        run: make install
+
+      - name: Build for Linux ARM64
+        run: make build-linux-arm64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3  # Updated to v3
+        with:
+          name: server-arm64
+          path: bin/linux/server-arm64  # Adjust the path if necessary
